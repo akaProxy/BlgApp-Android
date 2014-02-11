@@ -102,7 +102,7 @@ public class MainActivity extends Activity {
 
 
 
-    /*Allt vi behöver för navigationen*/
+    /* ------------ Allt vi behöver för navigationen ------------ */
 
     /**
      * Det här är ett interface som förklarar Item. Denna behövs i vår adapter.
@@ -145,6 +145,10 @@ public class MainActivity extends Activity {
         }
     }
 
+    /**
+     * Det här en adapter som kollar om det är ett SectionItem eller EntryItem som
+     * vi lägger till, och anpassar vilken layout därefter.
+     */
     private class MyNavAdapter extends ArrayAdapter<Item>{
         private Context context;
         private ArrayList<Item> items;
@@ -156,6 +160,11 @@ public class MainActivity extends Activity {
             li = (LayoutInflater)getSystemService(context.LAYOUT_INFLATER_SERVICE);
         }
 
+        /**
+         * Vi vill inte att SectionItems ska vara klickbara
+         * @param position är positionen i vår lista vi hämtar vår Item ifrån
+         * @return boolean om det är en sektion eller inte. Sektion innebär false.
+         */
         @Override
         public boolean isEnabled(int position) {
             return !items.get(position).isSection();
@@ -171,6 +180,11 @@ public class MainActivity extends Activity {
             final Item i = items.get(position);
             View view = convertView;
             if (i != null){
+                /*
+                * Den här delen förklarar nästan sig självt. Den kollar vårt items på bestämd position är en
+                * SectionItem eller inte, med Items interface.
+                */
+
                 if(i.isSection()){
                     SectionItem si = (SectionItem) i;
                     view = li.inflate(R.layout.navigation_section, null);
