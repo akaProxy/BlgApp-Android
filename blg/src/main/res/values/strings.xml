@@ -5,11 +5,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
-    <string-array name="nav_texts">
-        <item>Scheman</item>
-        <item>Flöden</item>
-        <item>Föreningar</item>
-    </string-array>
+    <string name="open_drawer">Öppna drawer</string>
+    <string name="close_drawer">Stäng drawer</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

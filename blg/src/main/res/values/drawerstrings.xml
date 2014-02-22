@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="nav_time_stuff">
+        <item>Scheman</item>
+        <item>Matsedel</item>
+        <item>Provplanering</item>
+    </string-array>
+
+    <string-array name="nav_social_stuff">
+        <item>Twitter</item>
+        <item>Facebook</item>
+    </string-array>
+
+    <string-array name="nav_foreningar_stuff">
+        <item>Programmeringsföreningen</item>
+        <item>Miljöföreningen</item>
+        <item>Harry Potter-föreningen</item>
+        <item>Fikaföreningen</item>
+        <item>Filmklubben</item>
+        <item>Utakusföreningen</item>
+    </string-array>
+
+    <string-array name="nav_karen_stuff">
+        <item>Elevdemokrati</item>
+    </string-array>
+
+    <string-array name="nav_texts">
+        <item>Scheman</item>
+        <item>Flöden</item>
+        <item>Föreningar</item>
+        <item>Elevdemokrati</item>
+    </string-array>
+</resources>
