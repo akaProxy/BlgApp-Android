@@ -1,1 +1,1 @@
-include ':blg'
+include ':blg', "libraries:NovaViewLib"

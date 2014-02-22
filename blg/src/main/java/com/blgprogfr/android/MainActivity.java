@@ -2,6 +2,7 @@ package com.blgprogfr.android;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.v4.widget.DrawerLayout;
@@ -14,7 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements ScheduleFragment.OnFragmentInteractionListener{
     private DrawerLayout mDrawerLayout;
     private String[] mNavTexts;
     private ListView mDrawerList;
@@ -93,6 +94,12 @@ public class MainActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
