@@ -1,6 +1,7 @@
 package com.blgprogfr.android;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements ScheduleFragment.OnFragmentInteractionListener{
     private DrawerLayout mDrawerLayout;
     private String[] mNavTexts;
     private ListView mDrawerList;
@@ -51,5 +52,10 @@ public class MainActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
