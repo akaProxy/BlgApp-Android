@@ -1,10 +1,15 @@
 package com.blgprogfr.android;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.*;
 import android.widget.AdapterView;
@@ -15,10 +20,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
-public class MainActivity extends Activity implements ScheduleFragment.OnFragmentInteractionListener{
+public class MainActivity extends Activity implements OnFragmentInteractionListener{
     private DrawerLayout mDrawerLayout;
     private String[] mNavTexts;
     private ListView mDrawerList;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private Fragment currentFragmentShowing;
 
     private ArrayList<Item> items = new ArrayList<Item>();
     @Override
@@ -27,8 +34,9 @@ public class MainActivity extends Activity implements ScheduleFragment.OnFragmen
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) {
+            currentFragmentShowing = new PlaceholderFragment();
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .add(R.id.container, currentFragmentShowing)
                     .commit();
         }
         initDrawer();
@@ -53,12 +61,46 @@ public class MainActivity extends Activity implements ScheduleFragment.OnFragmen
         writeIntoAdapter(items, karenSection, karenStuff);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,
+                mDrawerLayout,
+                R.drawable.ic_navigation_drawer,
+                R.string.open_drawer,
+                R.string.close_drawer
+        ){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+            }
+        };
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        getActionBar().setHomeButtonEnabled(true);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+
         mNavTexts = getResources().getStringArray(R.array.nav_texts);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         mDrawerList.setAdapter(new MyNavAdapter(this, items));
+
         //mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, mNavTexts));
 
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     private void writeIntoAdapter(ArrayList<Item> items, SectionItem sectionItem, String[] stuff) {
@@ -76,11 +118,45 @@ public class MainActivity extends Activity implements ScheduleFragment.OnFragmen
         return true;
     }
     private void selectItem(int position){
+        FragmentManager tm = getFragmentManager();
         switch(position){
-            case 0:
 
+            case 1:
+                currentFragmentShowing = new ScheduleFragment();
                 break;
+
+            case 2:
+                currentFragmentShowing = new PlaceholderFragment();
+                break;
+
+            case 3:
+                currentFragmentShowing = new PlaceholderFragment();
+                break;
+
+            case 5:
+                currentFragmentShowing = new SocialFragment();
+
+            case 6:
+                break;
+
+            case 8:
+                currentFragmentShowing = new AssociationFragment();
+            case 9:
+            case 10:
+            case 11:
+            case 12:
+            case 13:
+                break;
+
+            case 15:
+                currentFragmentShowing = new VoteFragment();
+            break;
+
+
         }
+        tm.beginTransaction().replace(R.id.container, currentFragmentShowing).commit();
+        mDrawerList.setItemChecked(position, true);
+        mDrawerLayout.closeDrawer(mDrawerList);
     }
 
     @Override
@@ -88,6 +164,10 @@ public class MainActivity extends Activity implements ScheduleFragment.OnFragmen
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+        if (mDrawerToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
